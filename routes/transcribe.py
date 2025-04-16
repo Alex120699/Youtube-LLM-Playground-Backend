@@ -10,6 +10,8 @@ transcribe_bp = Blueprint('transcribe', __name__)
 @transcribe_bp.route('/transcribe', methods=['POST'])
 def transcribe():
     try:
+        ip = request.remote_addr
+        print(f"Conexión desde: {ip}")
         data = request.get_json()
         youtube_url = data.get('url')
 
