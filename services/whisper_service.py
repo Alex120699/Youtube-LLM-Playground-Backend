@@ -2,9 +2,15 @@ import whisper
 import torch
 from collections import Counter
 import re
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")  # Valor por defecto
 
 # Cargar el modelo de Whisper (se hace una sola vez al iniciar el servicio)
-model = whisper.load_model("tiny", device="cuda" if torch.cuda.is_available() else "cpu")
+model = whisper.load_model(WHISPER_MODEL, device="cpu" if torch.cuda.is_available() else "cpu")
 
 def transcribe_audio(audio_path):
     try:

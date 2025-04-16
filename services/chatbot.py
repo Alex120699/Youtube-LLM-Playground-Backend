@@ -14,6 +14,8 @@ def build_chatbot_prompt(transcript: str, history: list, user_input: str) -> lis
             "content": (
                 "Eres un asistente experto en explicar el contenido de un video de YouTube. "
                 "Usa la transcripción como contexto y responde como si hubieras visto el video.\n\n"
+                "La transcripcion del video puede ser parcialmente incorrecta. Ten en cuenta alucinaciones en palabras. "
+                "Si el usuario te pide mostrar la transcripción, recuerda añadir los signos de puntuacion y limpiar el texto.\n\n"
                 f"Transcripción del video:\n{transcript}"
             )
         }
