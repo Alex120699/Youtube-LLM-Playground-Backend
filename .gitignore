@@ -1,0 +1,47 @@
+# Entorno virtual
+venv/
+.env/
+
+# Archivos bytecode de Python
+**/__pycache__/
+**/__pycache__/*
+*.py[cod]
+*.pyo
+*.pyd
+
+# Archivos de configuración o entorno
+*.env
+*.env.*
+
+# Logs y bases de datos locales
+*.log
+*.sqlite3
+*.db
+instance/
+
+# Caché
+.cache/
+*.egg-info/
+*.bak
+*.swp
+*.tmp
+
+# Carpetas de pruebas (si usas pytest o similares)
+htmlcov/
+.tox/
+.coverage
+.pytest_cache/
+
+# IDEs y editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Build
+dist/
+build/
+
+# Sistema
+.DS_Store
+Thumbs.db
