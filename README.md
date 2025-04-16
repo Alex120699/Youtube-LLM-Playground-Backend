@@ -73,5 +73,5 @@ Create a `.env` file in the backend directory:
 MODEL_NAME=llama3.1
 ```
 
-##License
+## License
 MIT License
