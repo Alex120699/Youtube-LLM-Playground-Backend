@@ -4,6 +4,7 @@ from services.whisper_service import transcribe_audio
 from services.summarizer import summarize_with_ollama
 import os
 import time  # Importa time para medir duración
+import torch
 
 transcribe_bp = Blueprint('transcribe', __name__)
 
@@ -23,7 +24,8 @@ def transcribe():
 
         try:
             print("Transcribing audio...")
-            transcript = transcribe_audio(audio_path)
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            transcript = transcribe_audio(audio_path,device=device)
 
             os.remove(audio_path)
             os.rmdir(os.path.dirname(audio_path))

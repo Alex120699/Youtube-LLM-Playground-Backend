@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from services.youtube_service import download_audio
 from services.whisper_service import analyze_audio
 import os
+import torch
 
 top_words_bp = Blueprint('top_words', __name__)
 
@@ -18,8 +19,10 @@ def analyze():
         audio_path = download_audio(youtube_url)
         
         try:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            
             # Analizar el audio
-            top_words = analyze_audio(audio_path)
+            top_words = analyze_audio(audio_path,device=device)
             
             # Limpiar el archivo temporal
             os.remove(audio_path)

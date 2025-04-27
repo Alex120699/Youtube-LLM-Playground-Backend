@@ -15,12 +15,12 @@ from routes.chat_about_video import chat_bp
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)#, origins=["https://youtube-llm-playground-frontend.vercel.app"])
 
 # Registrar los blueprints
 app.register_blueprint(top_words_bp, url_prefix='/top-words')
 app.register_blueprint(complete_text_bp, url_prefix='/complete-text')
-app.register_blueprint(summarize_bp, url_prefix = '/summarize')
+app.register_blueprint(summarize_bp)
 app.register_blueprint(transcribe_bp)
 app.register_blueprint(chat_bp)
 

@@ -3,6 +3,7 @@ from services.youtube_service import download_audio
 from services.whisper_service import transcribe_audio
 import os
 import random
+import torch
 
 complete_text_bp = Blueprint('complete_text', __name__)
 
@@ -20,7 +21,8 @@ def get_text():
         
         try:
             # Transcribir el audio
-            text = transcribe_audio(audio_path)
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            text = transcribe_audio(audio_path,device=device)
             words = text.split()
             
             # Seleccionar 10% de las palabras al azar para ocultar

@@ -9,21 +9,22 @@ load_dotenv()
 
 WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")  # Valor por defecto
 
-# Cargar el modelo de Whisper (se hace una sola vez al iniciar el servicio)
-model = whisper.load_model(WHISPER_MODEL, device="cpu" if torch.cuda.is_available() else "cpu")
 
-def transcribe_audio(audio_path):
+def transcribe_audio(audio_path,device="cpu"):
     try:
+        print(f"Usando dispositivo: {device}")
+        print(f"Modelo de Whisper: {WHISPER_MODEL}")
+        model = whisper.load_model(WHISPER_MODEL, device=device)
         # Transcribir el audio
         result = model.transcribe(audio_path)
         return result["text"]
     except Exception as e:
         raise Exception(f"Error al transcribir el audio: {str(e)}")
 
-def analyze_audio(audio_path):
+def analyze_audio(audio_path,device="cpu"):
     try:
         # Transcribir el audio
-        text = transcribe_audio(audio_path).lower()
+        text = transcribe_audio(audio_path,device).lower()
         
         # Extraer palabras (excluyendo palabras muy cortas)
         words = re.findall(r'\b\w{3,}\b', text)

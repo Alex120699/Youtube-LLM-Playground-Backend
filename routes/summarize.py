@@ -4,6 +4,7 @@ from services.whisper_service import transcribe_audio
 from services.summarizer import summarize_with_ollama
 import os
 import time  # Importa time para medir duración
+import torch
 
 summarize_bp = Blueprint('summarize', __name__)
 
@@ -28,8 +29,9 @@ def summarize():
 
         try:
             print("Transcribing audio...")
+            device = "cuda" if torch.cuda.is_available() else "cpu"
             start_transcription = time.time()
-            text = transcribe_audio(audio_path)
+            text = transcribe_audio(audio_path,device)
             end_transcription = time.time()
             print(f"✅ Transcripción completada en {end_transcription - start_transcription:.2f} segundos")
             
@@ -42,7 +44,8 @@ def summarize():
             summarized_text = summarize_with_ollama(text)
             end_summary = time.time()
             print(f"✅ Resumen generado en {end_summary - start_summary:.2f} segundos")
-
+            print(f"⏱ Tiempo total: {end_summary - total_start:.2f} segundos")
+            print(f"Texto resumido: {summarized_text}")
             return jsonify({
                 'summary': summarized_text
             })
